@@ -16,13 +16,6 @@ AItem::AItem()
 void AItem::BeginPlay()
 {
 	Super::BeginPlay();
-
-	UE_LOG(LogTemp, Warning, TEXT("Item BeginPlay"));
-
-	FVector Location = GetActorLocation();
-	FVector L2 = Location + FVector{ 100, 0, 0 };
-
-	DRAW_SPHERE(Location);
 }
 
 // Called every frame
@@ -30,5 +23,15 @@ void AItem::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	// 프레임에 상관없이 움직임이 일정하도록
+	float MovementRate = 50.f;
+	float RotationRate = 45.f;
+
+	// Rate * DeltaTime (cm/s) * (s/frame) = (cm/frame)
+	AddActorWorldOffset(FVector(MovementRate * DeltaTime, 0.f, 0.f));
+	AddActorWorldRotation(FRotator(0.f, RotationRate * DeltaTime, 0.f));
+
+	DRAW_SPHERE_SingleFrame(GetActorLocation());
+	DRAW_VECTOR_SingleFrame(GetActorLocation(), GetActorLocation() + GetActorForwardVector() * 100.f);
 }
 
