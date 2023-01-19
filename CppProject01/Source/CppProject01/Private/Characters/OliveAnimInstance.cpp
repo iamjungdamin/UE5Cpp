@@ -22,6 +22,7 @@ void UOliveAnimInstance::NativeUpdateAnimation(float DeltaTime)
 
 	if (Movement) {
 		GroundSpeed = UKismetMathLibrary::VSizeXY(Movement->Velocity);
+		IsFalling = Movement->IsFalling();
 	}
 }
 

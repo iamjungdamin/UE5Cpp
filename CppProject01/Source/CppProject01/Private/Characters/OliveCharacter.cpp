@@ -91,6 +91,8 @@ void AOliveCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	PlayerInputComponent->BindAxis(FName("MoveRight"), this, &AOliveCharacter::MoveRight);
 	PlayerInputComponent->BindAxis(FName("Turn"), this, &AOliveCharacter::Turn);
 	PlayerInputComponent->BindAxis(FName("LookUp"), this, &AOliveCharacter::LookUp);
+	
+	PlayerInputComponent->BindAction(FName("Jump"), IE_Pressed, this, &ACharacter::Jump);
 
 }
 
