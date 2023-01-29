@@ -81,6 +81,13 @@ void AOliveCharacter::LookUp(float Value)
 	AddControllerPitchInput(Value);
 }
 
+void AOliveCharacter::ChangeWeapon()
+{
+	WeaponIndex = (WeaponIndex + 1) % 3;
+	SetWeapon(WeaponIndex);
+
+}
+
 // Called every frame
 void AOliveCharacter::Tick(float DeltaTime)
 {
@@ -99,6 +106,8 @@ void AOliveCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	PlayerInputComponent->BindAxis(FName("LookUp"), this, &AOliveCharacter::LookUp);
 	
 	PlayerInputComponent->BindAction(FName("Jump"), IE_Pressed, this, &ACharacter::Jump);
+
+	PlayerInputComponent->BindAction(FName("ChangeWeapon"), IE_Pressed, this, &AOliveCharacter::ChangeWeapon);
 
 }
 

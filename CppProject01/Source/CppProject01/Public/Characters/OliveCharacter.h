@@ -28,6 +28,8 @@ protected:
 	void Turn(float Value);
 	void LookUp(float Value);
 
+	void ChangeWeapon();
+
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
