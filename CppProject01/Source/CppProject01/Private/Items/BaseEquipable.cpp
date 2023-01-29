@@ -4,6 +4,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "GameFramework/Character.h"
 
 // Sets default values
 ABaseEquipable::ABaseEquipable()
@@ -55,5 +56,12 @@ void ABaseEquipable::SetIsEquipped(bool value)
 bool ABaseEquipable::GetIsEquipped() const
 {
 	return IsEquipped;
+}
+
+void ABaseEquipable::AttachActor(FName socketName)
+{
+	ACharacter* owner = GetOwner<ACharacter>();
+	FAttachmentTransformRules TransformRules(EAttachmentRule::SnapToTarget, true);
+	AttachToComponent(owner->GetMesh(), TransformRules, socketName);
 }
 

@@ -18,6 +18,12 @@ void ABaseWeapon::Tick(float DeltaTime)
 	ABaseEquipable::Tick(DeltaTime);
 }
 
+void ABaseWeapon::OnEquipped()
+{
+	IsEquipped = true;
+	AttachActor(HandSocketName);
+}
+
 void ABaseWeapon::SetDamge(int value)
 {
 	Damage = value;

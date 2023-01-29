@@ -5,6 +5,10 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Items/BaseWeapon.h"
+#include "Items/FireSword.h"
+#include "Items/IceSword.h"
+#include "Items/ElectricSword.h"
 
 // Sets default values
 AOliveCharacter::AOliveCharacter()
@@ -33,6 +37,8 @@ void AOliveCharacter::BeginPlay()
 {
 	Super::BeginPlay(); 
 	
+	WeaponIndex = 0;
+	SetWeapon(WeaponIndex);
 }
 
 void AOliveCharacter::MoveForward(float Value)
@@ -94,5 +100,40 @@ void AOliveCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	
 	PlayerInputComponent->BindAction(FName("Jump"), IE_Pressed, this, &ACharacter::Jump);
 
+}
+
+void AOliveCharacter::SetWeapon(int value)
+{
+	if (Weapon) {
+		Weapon->OnUnequipped();
+		Weapon->Destroy();
+	}
+
+	if (WeaponIndex == 0) {
+		Weapon = GetWorld()->SpawnActor<AFireSword>(GetActorLocation(), GetActorRotation());
+		Weapon->SetOwner(Cast<AActor>(this));
+		Weapon->SetInstigator(Cast<APawn>(this));
+
+		Weapon->OnEquipped();
+	}
+	else if (WeaponIndex == 1) {
+		Weapon = GetWorld()->SpawnActor<AIceSword>(GetActorLocation(), GetActorRotation());
+		Weapon->SetOwner(Cast<AActor>(this));
+		Weapon->SetInstigator(Cast<APawn>(this));
+
+		Weapon->OnEquipped();
+	}
+	else if (WeaponIndex == 2) {
+		Weapon = GetWorld()->SpawnActor<AElectricSword>(GetActorLocation(), GetActorRotation());
+		Weapon->SetOwner(Cast<AActor>(this));
+		Weapon->SetInstigator(Cast<APawn>(this));
+
+		Weapon->OnEquipped();
+	}
+}
+
+ABaseWeapon* AOliveCharacter::GetWeapon() const
+{
+	return Weapon;
 }
 

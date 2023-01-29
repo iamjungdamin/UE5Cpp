@@ -21,4 +21,6 @@ AElectricSword::AElectricSword()
 	else {
 		UE_LOG(LogTemp, Warning, TEXT("Failed to Load Assets"));
 	}
+
+	HandSocketName = "ElectricSocket";
 }

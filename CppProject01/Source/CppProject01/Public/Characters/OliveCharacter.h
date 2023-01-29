@@ -8,6 +8,7 @@
 
 class USpringArmComponent;
 class UCameraComponent;
+class ABaseWeapon;
 
 UCLASS()
 class CPPPROJECT01_API AOliveCharacter : public ACharacter
@@ -27,7 +28,7 @@ protected:
 	void Turn(float Value);
 	void LookUp(float Value);
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -40,4 +41,14 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 		UCameraComponent* ViewCamera;
+
+	UPROPERTY(VisibleAnywhere)
+		ABaseWeapon* Weapon;
+
+	UPROPERTY(VisibleAnywhere)
+		int WeaponIndex;
+
+public:
+	void SetWeapon(int value);
+	ABaseWeapon* GetWeapon() const;
 };

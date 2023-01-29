@@ -47,4 +47,7 @@ public:
 	virtual void SetIsEquipped(bool value);
 	virtual bool GetIsEquipped() const;
 
+	void AttachActor(FName socketName);
+
+
 };

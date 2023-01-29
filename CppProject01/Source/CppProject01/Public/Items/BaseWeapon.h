@@ -33,6 +33,9 @@ protected:
 public:
 	FName HandSocketName;
 
+public:
+	virtual void OnEquipped() override;
+
 	void SetDamge(int value);
 	float GetDamage() const;
 };
