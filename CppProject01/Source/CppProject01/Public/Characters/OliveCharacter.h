@@ -28,8 +28,6 @@ protected:
 	void Turn(float Value);
 	void LookUp(float Value);
 
-	void ChangeWeapon();
-
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -45,12 +43,29 @@ private:
 		UCameraComponent* ViewCamera;
 
 	UPROPERTY(VisibleAnywhere)
+		bool isIdle = true;
+
+	UPROPERTY(VisibleAnywhere)
 		ABaseWeapon* Weapon;
 
 	UPROPERTY(VisibleAnywhere)
 		int WeaponIndex;
 
-public:
+private:	
+	// Animation Montages
+	UPROPERTY(EditDefaultsOnly, Category = Montages)
+		UAnimMontage* AttackMontage;
+
+private:
 	void SetWeapon(int value);
 	ABaseWeapon* GetWeapon() const;
+
+	void ChangeWeapon();
+	void BasicAttack();
+	void Charge();
+	void ChargedAttack();
+	void Skill01();
+	void Skill02();
+	void Skill03();
 };
+

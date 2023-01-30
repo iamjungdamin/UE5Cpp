@@ -81,13 +81,6 @@ void AOliveCharacter::LookUp(float Value)
 	AddControllerPitchInput(Value);
 }
 
-void AOliveCharacter::ChangeWeapon()
-{
-	WeaponIndex = (WeaponIndex + 1) % 3;
-	SetWeapon(WeaponIndex);
-
-}
-
 // Called every frame
 void AOliveCharacter::Tick(float DeltaTime)
 {
@@ -108,6 +101,12 @@ void AOliveCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	PlayerInputComponent->BindAction(FName("Jump"), IE_Pressed, this, &ACharacter::Jump);
 
 	PlayerInputComponent->BindAction(FName("ChangeWeapon"), IE_Pressed, this, &AOliveCharacter::ChangeWeapon);
+	PlayerInputComponent->BindAction(FName("LeftClick"), IE_Pressed, this, &AOliveCharacter::BasicAttack);
+	PlayerInputComponent->BindAction(FName("RightClick"), IE_Pressed, this, &AOliveCharacter::Charge);
+	PlayerInputComponent->BindAction(FName("RightClick"), IE_Released, this, &AOliveCharacter::ChargedAttack);
+	PlayerInputComponent->BindAction(FName("One"), IE_Pressed, this, &AOliveCharacter::Skill01);
+	PlayerInputComponent->BindAction(FName("Two"), IE_Pressed, this, &AOliveCharacter::Skill02);
+	PlayerInputComponent->BindAction(FName("Three"), IE_Pressed, this, &AOliveCharacter::Skill03);
 
 }
 
@@ -144,5 +143,52 @@ void AOliveCharacter::SetWeapon(int value)
 ABaseWeapon* AOliveCharacter::GetWeapon() const
 {
 	return Weapon;
+}
+
+void AOliveCharacter::ChangeWeapon()
+{
+	WeaponIndex = (WeaponIndex + 1) % 3;
+	SetWeapon(WeaponIndex);
+
+}
+
+void AOliveCharacter::BasicAttack()
+{
+	UE_LOG(LogTemp, Warning, TEXT("BasicAttack"));
+
+}
+
+void AOliveCharacter::Charge()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Charge"));
+
+}
+
+void AOliveCharacter::ChargedAttack()
+{
+	UE_LOG(LogTemp, Warning, TEXT("ChargedAttack"));
+
+}
+
+void AOliveCharacter::Skill01()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Skill01"));
+
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	if (AnimInstance) {
+		//AnimInstance->Montage_Play();
+	}
+
+}
+
+void AOliveCharacter::Skill02()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Skill02"));
+}
+
+void AOliveCharacter::Skill03()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Skill03"));
+
 }
 
