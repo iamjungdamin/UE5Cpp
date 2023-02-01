@@ -5,6 +5,8 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Animation/AnimMontage.h"
+
 #include "Items/BaseWeapon.h"
 #include "Items/FireSword.h"
 #include "Items/IceSword.h"
