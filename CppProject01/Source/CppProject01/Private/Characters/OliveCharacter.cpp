@@ -177,8 +177,20 @@ void AOliveCharacter::Skill01()
 	UE_LOG(LogTemp, Warning, TEXT("Skill01"));
 
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-	if (AnimInstance) {
-		//AnimInstance->Montage_Play();
+	if (AnimInstance && Skill01Montage) {
+		AnimInstance->Montage_Play(Skill01Montage);
+		FName SectionName = FName();
+
+		if (WeaponIndex == 0) {
+			SectionName = FName("Fire");
+		}
+		else if (WeaponIndex == 1) {
+			SectionName = FName("Ice");
+		}
+		else if (WeaponIndex == 2) {
+			SectionName = FName("Electric");
+		}
+		AnimInstance->Montage_JumpToSection(SectionName, Skill01Montage);
 	}
 
 }
@@ -186,11 +198,44 @@ void AOliveCharacter::Skill01()
 void AOliveCharacter::Skill02()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Skill02"));
+
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	if (AnimInstance && Skill02Montage) {
+		AnimInstance->Montage_Play(Skill02Montage);
+		FName SectionName = FName();
+
+		if (WeaponIndex == 0) {
+			SectionName = FName("Fire");
+		}
+		else if (WeaponIndex == 1) {
+			SectionName = FName("Ice");
+		}
+		else if (WeaponIndex == 2) {
+			SectionName = FName("Electric");
+		}
+		AnimInstance->Montage_JumpToSection(SectionName, Skill02Montage);
+	}
 }
 
 void AOliveCharacter::Skill03()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Skill03"));
 
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	if (AnimInstance && Skill03Montage) {
+		AnimInstance->Montage_Play(Skill03Montage);
+		FName SectionName = FName();
+
+		if (WeaponIndex == 0) {
+			SectionName = FName("Fire");
+		}
+		else if (WeaponIndex == 1) {
+			SectionName = FName("Ice");
+		}
+		else if (WeaponIndex == 2) {
+			SectionName = FName("Electric");
+		}
+		AnimInstance->Montage_JumpToSection(SectionName, Skill03Montage);
+	}
 }
 
