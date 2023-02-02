@@ -42,22 +42,18 @@ private:
 	UPROPERTY(VisibleAnywhere)
 		UCameraComponent* ViewCamera;
 
-	UPROPERTY(VisibleAnywhere)
-		bool isIdle = true;
+	bool isIdle = true;
 
-	UPROPERTY(VisibleAnywhere)
-		ABaseWeapon* Weapon;
-
-	UPROPERTY(VisibleAnywhere)
-		int WeaponIndex;
+	ABaseWeapon* Weapon;
+	int WeaponIndex;
 
 private:	
 	// Animation Montages
 	UPROPERTY(EditDefaultsOnly, Category = Montages)
-		UAnimMontage* BasicAttackMontage;
+		UAnimMontage* BasicAttackMontage[3];
 
 	UPROPERTY(EditDefaultsOnly, Category = Montages)
-		UAnimMontage* ChargedAttackMontage;
+		UAnimMontage* ChargedAttackMontage[3];
 
 	UPROPERTY(EditDefaultsOnly, Category = Montages)
 		UAnimMontage* Skill01Montage;

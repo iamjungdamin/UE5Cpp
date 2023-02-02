@@ -6,6 +6,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Animation/AnimMontage.h"
+#include "UObject/ConstructorHelpers.h"
 
 #include "Items/BaseWeapon.h"
 #include "Items/FireSword.h"
@@ -30,6 +31,8 @@ AOliveCharacter::AOliveCharacter()
 
 	ViewCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("ViewCamera"));
 	ViewCamera->SetupAttachment(CameraBoom);
+
+	// todo: set montages
 
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 }
@@ -164,11 +167,23 @@ void AOliveCharacter::Charge()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Charge"));
 
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	if (AnimInstance && ChargedAttackMontage[WeaponIndex]) {
+		AnimInstance->Montage_Play(ChargedAttackMontage[WeaponIndex]);
+		AnimInstance->Montage_JumpToSection(FName("01"), ChargedAttackMontage[WeaponIndex]);
+	}
+
 }
 
 void AOliveCharacter::ChargedAttack()
 {
 	UE_LOG(LogTemp, Warning, TEXT("ChargedAttack"));
+
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	if (AnimInstance && ChargedAttackMontage[WeaponIndex]) {
+		AnimInstance->Montage_Play(ChargedAttackMontage[WeaponIndex]);
+		AnimInstance->Montage_JumpToSection(FName("02"), ChargedAttackMontage[WeaponIndex]);
+	}
 
 }
 
