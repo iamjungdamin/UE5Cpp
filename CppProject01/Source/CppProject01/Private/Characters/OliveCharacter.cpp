@@ -106,6 +106,8 @@ void AOliveCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	PlayerInputComponent->BindAction(FName("Jump"), IE_Pressed, this, &ACharacter::Jump);
 
 	PlayerInputComponent->BindAction(FName("ChangeWeapon"), IE_Pressed, this, &AOliveCharacter::ChangeWeapon);
+	PlayerInputComponent->BindAction(FName("Dash"), IE_Pressed, this, &AOliveCharacter::Dash);
+
 	PlayerInputComponent->BindAction(FName("LeftClick"), IE_Pressed, this, &AOliveCharacter::BasicAttack);
 	PlayerInputComponent->BindAction(FName("RightClick"), IE_Pressed, this, &AOliveCharacter::Charge);
 	PlayerInputComponent->BindAction(FName("RightClick"), IE_Released, this, &AOliveCharacter::ChargedAttack);
@@ -155,6 +157,14 @@ void AOliveCharacter::ChangeWeapon()
 	WeaponIndex = (WeaponIndex + 1) % 3;
 	SetWeapon(WeaponIndex);
 
+}
+
+void AOliveCharacter::Dash()
+{
+	FVector Forward = GetActorForwardVector() * 10000.f;
+	FVector Down = FVector(0, 0, -100.f);
+	GetCharacterMovement()->SetMovementMode(MOVE_Falling);
+	LaunchCharacter(Forward + Down, true, true);
 }
 
 void AOliveCharacter::BasicAttack()

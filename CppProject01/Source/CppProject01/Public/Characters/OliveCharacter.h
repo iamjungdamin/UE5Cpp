@@ -69,6 +69,8 @@ private:
 	ABaseWeapon* GetWeapon() const;
 
 	void ChangeWeapon();
+	void Dash();
+
 	void BasicAttack();
 	void Charge();
 	void ChargedAttack();
