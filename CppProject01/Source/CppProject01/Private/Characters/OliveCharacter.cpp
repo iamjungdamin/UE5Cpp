@@ -108,7 +108,7 @@ void AOliveCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	PlayerInputComponent->BindAction(FName("ChangeWeapon"), IE_Pressed, this, &AOliveCharacter::ChangeWeapon);
 	PlayerInputComponent->BindAction(FName("Dash"), IE_Pressed, this, &AOliveCharacter::Dash);
 
-	PlayerInputComponent->BindAction(FName("LeftClick"), IE_Pressed, this, &AOliveCharacter::BasicAttack);
+	PlayerInputComponent->BindAction(FName("LeftClick"), IE_Pressed, this, &AOliveCharacter::ComboAttack);
 	PlayerInputComponent->BindAction(FName("RightClick"), IE_Pressed, this, &AOliveCharacter::Charge);
 	PlayerInputComponent->BindAction(FName("RightClick"), IE_Released, this, &AOliveCharacter::ChargedAttack);
 	PlayerInputComponent->BindAction(FName("One"), IE_Pressed, this, &AOliveCharacter::Skill01);
@@ -157,24 +157,68 @@ void AOliveCharacter::ChangeWeapon()
 	WeaponIndex = (WeaponIndex + 1) % 3;
 	SetWeapon(WeaponIndex);
 
+	UE_LOG(LogTemp, Warning, TEXT("WeaponIndex = %d"), WeaponIndex);
 }
 
 void AOliveCharacter::Dash()
 {
-	FVector Forward = GetActorForwardVector() * 10000.f;
-	FVector Down = FVector(0, 0, -100.f);
-	GetCharacterMovement()->SetMovementMode(MOVE_Falling);
+	FVector Forward = GetActorForwardVector() * 20000.f;
+	FVector Down = FVector(0, 0, -300.f);
 	LaunchCharacter(Forward + Down, true, true);
+
+	//UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	//if (AnimInstance && DashMontage) {
+	//	AnimInstance->Montage_Play(DashMontage);
+	//}
+
+}
+
+void AOliveCharacter::ComboAttack()
+{
+	if (!isIdle) {
+		comboUpdate = true;
+		return;
+	}
+
+	BasicAttack();
 }
 
 void AOliveCharacter::BasicAttack()
 {
 	UE_LOG(LogTemp, Warning, TEXT("BasicAttack"));
+	isIdle = false;
+
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	if (AnimInstance && BasicAttackMontage[WeaponIndex]) {
+		AnimInstance->Montage_Play(BasicAttackMontage[WeaponIndex]);
+		FName SectionName = FName();
+
+		if (comboCount == 0) {
+			SectionName = FName("01");
+		}
+		else if (comboCount == 1) {
+			SectionName = FName("02");
+		}
+		else if (comboCount == 2) {
+			SectionName = FName("03");
+		}
+		else if (comboCount == 3) {
+			SectionName = FName("04");
+		}
+		else if (comboCount == 4) {
+			SectionName = FName("05");
+		}
+		AnimInstance->Montage_JumpToSection(SectionName, BasicAttackMontage[WeaponIndex]);
+	}
 
 }
 
 void AOliveCharacter::Charge()
 {
+	if (!isIdle) {
+		return;
+	}
+
 	UE_LOG(LogTemp, Warning, TEXT("Charge"));
 
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
@@ -264,3 +308,25 @@ void AOliveCharacter::Skill03()
 	}
 }
 
+void AOliveCharacter::SetIsIdle(bool value)
+{
+	isIdle = value;
+}
+
+void AOliveCharacter::SaveCombo()
+{
+	if (comboUpdate) {
+		comboUpdate = false;
+		comboCount += 1;
+
+		if (comboCount > 0) {
+			BasicAttack();
+		}
+	}
+
+}
+
+void AOliveCharacter::ResetCombo()
+{
+	comboCount = 0;
+}

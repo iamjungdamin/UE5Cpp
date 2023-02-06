@@ -19,7 +19,7 @@ public:
 	virtual void NativeUpdateAnimation(float DeltaTime) override;
 
 	UPROPERTY(BlueprintReadOnly)
-	class AOliveCharacter* OliveCharacter;
+	class AOliveCharacter* Owner;
 
 	UPROPERTY(BlueprintReadOnly, Category = Movement)
 	class UCharacterMovementComponent* Movement;
@@ -29,4 +29,15 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, Category = Movement)
 	bool IsFalling;
+
+public:
+	UFUNCTION()
+		void AnimNotify_SetIsIdle();
+		
+	UFUNCTION()
+		void AnimNotify_SaveCombo();
+
+	UFUNCTION()
+		void AnimNotify_ResetCombo();
+
 };

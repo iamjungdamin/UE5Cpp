@@ -10,9 +10,9 @@ void UOliveAnimInstance::NativeInitializeAnimation()
 {
 	Super::NativeInitializeAnimation();
 
-	OliveCharacter = Cast<AOliveCharacter>(TryGetPawnOwner());
-	if (OliveCharacter) {
-		Movement = OliveCharacter->GetCharacterMovement();
+	Owner = Cast<AOliveCharacter>(TryGetPawnOwner());
+	if (Owner) {
+		Movement = Owner->GetCharacterMovement();
 	}
 }
 
@@ -24,5 +24,21 @@ void UOliveAnimInstance::NativeUpdateAnimation(float DeltaTime)
 		GroundSpeed = UKismetMathLibrary::VSizeXY(Movement->Velocity);
 		IsFalling = Movement->IsFalling();
 	}
+}
+
+void UOliveAnimInstance::AnimNotify_SetIsIdle()
+{
+	Owner->SetIsIdle(true);
+}
+
+void UOliveAnimInstance::AnimNotify_SaveCombo()
+{
+	Owner->SaveCombo();
+}
+
+void UOliveAnimInstance::AnimNotify_ResetCombo()
+{
+	Owner->ResetCombo();
+	Owner->SetIsIdle(true);
 }
 

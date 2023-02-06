@@ -47,8 +47,14 @@ private:
 	ABaseWeapon* Weapon;
 	int WeaponIndex;
 
+	int comboCount = 0;
+	bool comboUpdate = false;
+
 private:	
 	// Animation Montages
+	UPROPERTY(EditDefaultsOnly, Category = Montages)
+		UAnimMontage* DashMontage;
+	
 	UPROPERTY(EditDefaultsOnly, Category = Montages)
 		UAnimMontage* BasicAttackMontage[3];
 
@@ -71,11 +77,18 @@ private:
 	void ChangeWeapon();
 	void Dash();
 
+	void ComboAttack();
 	void BasicAttack();
 	void Charge();
 	void ChargedAttack();
 	void Skill01();
 	void Skill02();
 	void Skill03();
+
+public:
+	void SetIsIdle(bool value);
+
+	void SaveCombo();
+	void ResetCombo();
 };
 
