@@ -48,6 +48,10 @@ void AOliveCharacter::BeginPlay()
 
 void AOliveCharacter::MoveForward(float Value)
 {
+	if (!isIdle) {
+		return;
+	}
+
 	if (Controller && (Value != 0.f)) {
 		//FVector Forward = GetActorForwardVector();
 		//AddMovementInput(Forward, Value);
@@ -63,6 +67,10 @@ void AOliveCharacter::MoveForward(float Value)
 
 void AOliveCharacter::MoveRight(float Value)
 {
+	if (!isIdle) {
+		return;
+	}
+
 	if (Controller && (Value != 0.f)) {
 		//FVector Right = GetActorRightVector();
 		//AddMovementInput(Right, Value);
@@ -154,6 +162,10 @@ ABaseWeapon* AOliveCharacter::GetWeapon() const
 
 void AOliveCharacter::ChangeWeapon()
 {
+	if (!isIdle) {
+		return;
+	}
+
 	WeaponIndex = (WeaponIndex + 1) % 3;
 	SetWeapon(WeaponIndex);
 
@@ -162,6 +174,10 @@ void AOliveCharacter::ChangeWeapon()
 
 void AOliveCharacter::Dash()
 {
+	if (!isIdle) {
+		return;
+	}
+
 	FVector Forward = GetActorForwardVector() * 20000.f;
 	FVector Down = FVector(0, 0, -300.f);
 	LaunchCharacter(Forward + Down, true, true);
@@ -186,13 +202,13 @@ void AOliveCharacter::ComboAttack()
 void AOliveCharacter::BasicAttack()
 {
 	UE_LOG(LogTemp, Warning, TEXT("BasicAttack"));
-	isIdle = false;
 
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 	if (AnimInstance && BasicAttackMontage[WeaponIndex]) {
+		isIdle = false;
+
 		AnimInstance->Montage_Play(BasicAttackMontage[WeaponIndex]);
 		FName SectionName = FName();
-
 		if (comboCount == 0) {
 			SectionName = FName("01");
 		}
@@ -223,6 +239,8 @@ void AOliveCharacter::Charge()
 
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 	if (AnimInstance && ChargedAttackMontage[WeaponIndex]) {
+		isIdle = false;
+
 		AnimInstance->Montage_Play(ChargedAttackMontage[WeaponIndex]);
 		AnimInstance->Montage_JumpToSection(FName("01"), ChargedAttackMontage[WeaponIndex]);
 	}
@@ -235,6 +253,7 @@ void AOliveCharacter::ChargedAttack()
 
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 	if (AnimInstance && ChargedAttackMontage[WeaponIndex]) {
+
 		AnimInstance->Montage_Play(ChargedAttackMontage[WeaponIndex]);
 		AnimInstance->Montage_JumpToSection(FName("02"), ChargedAttackMontage[WeaponIndex]);
 	}
@@ -243,68 +262,53 @@ void AOliveCharacter::ChargedAttack()
 
 void AOliveCharacter::Skill01()
 {
+	if (!isIdle) {
+		return;
+	}
+
 	UE_LOG(LogTemp, Warning, TEXT("Skill01"));
 
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-	if (AnimInstance && Skill01Montage) {
-		AnimInstance->Montage_Play(Skill01Montage);
-		FName SectionName = FName();
+	if (AnimInstance && SkillMontage[WeaponIndex]) {
+		isIdle = false;
 
-		if (WeaponIndex == 0) {
-			SectionName = FName("Fire");
-		}
-		else if (WeaponIndex == 1) {
-			SectionName = FName("Ice");
-		}
-		else if (WeaponIndex == 2) {
-			SectionName = FName("Electric");
-		}
-		AnimInstance->Montage_JumpToSection(SectionName, Skill01Montage);
+		AnimInstance->Montage_Play(SkillMontage[WeaponIndex]);
+		AnimInstance->Montage_JumpToSection(FName("01"), SkillMontage[WeaponIndex]);
 	}
 
 }
 
 void AOliveCharacter::Skill02()
 {
+	if (!isIdle) {
+		return;
+	}
+
 	UE_LOG(LogTemp, Warning, TEXT("Skill02"));
 
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-	if (AnimInstance && Skill02Montage) {
-		AnimInstance->Montage_Play(Skill02Montage);
-		FName SectionName = FName();
+	if (AnimInstance && SkillMontage[WeaponIndex]) {
+		isIdle = false;
 
-		if (WeaponIndex == 0) {
-			SectionName = FName("Fire");
-		}
-		else if (WeaponIndex == 1) {
-			SectionName = FName("Ice");
-		}
-		else if (WeaponIndex == 2) {
-			SectionName = FName("Electric");
-		}
-		AnimInstance->Montage_JumpToSection(SectionName, Skill02Montage);
+		AnimInstance->Montage_Play(SkillMontage[WeaponIndex]);
+		AnimInstance->Montage_JumpToSection(FName("02"), SkillMontage[WeaponIndex]);
 	}
 }
 
 void AOliveCharacter::Skill03()
 {
+	if (!isIdle) {
+		return;
+	}
+
 	UE_LOG(LogTemp, Warning, TEXT("Skill03"));
 
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-	if (AnimInstance && Skill03Montage) {
-		AnimInstance->Montage_Play(Skill03Montage);
-		FName SectionName = FName();
+	if (AnimInstance && SkillMontage[WeaponIndex]) {
+		isIdle = false;
 
-		if (WeaponIndex == 0) {
-			SectionName = FName("Fire");
-		}
-		else if (WeaponIndex == 1) {
-			SectionName = FName("Ice");
-		}
-		else if (WeaponIndex == 2) {
-			SectionName = FName("Electric");
-		}
-		AnimInstance->Montage_JumpToSection(SectionName, Skill03Montage);
+		AnimInstance->Montage_Play(SkillMontage[WeaponIndex]);
+		AnimInstance->Montage_JumpToSection(FName("03"), SkillMontage[WeaponIndex]);
 	}
 }
 

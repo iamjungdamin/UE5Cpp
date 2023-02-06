@@ -62,13 +62,7 @@ private:
 		UAnimMontage* ChargedAttackMontage[3];
 
 	UPROPERTY(EditDefaultsOnly, Category = Montages)
-		UAnimMontage* Skill01Montage;
-
-	UPROPERTY(EditDefaultsOnly, Category = Montages)
-		UAnimMontage* Skill02Montage;
-
-	UPROPERTY(EditDefaultsOnly, Category = Montages)
-		UAnimMontage* Skill03Montage;
+		UAnimMontage* SkillMontage[3];
 
 private:
 	void SetWeapon(int value);
