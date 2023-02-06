@@ -319,9 +319,24 @@ void AOliveCharacter::SetIsIdle(bool value)
 
 void AOliveCharacter::SaveCombo()
 {
+	int maxComboCount = 0;
+	if (WeaponIndex == 0) {
+		maxComboCount = 2;
+	}
+	else if (WeaponIndex == 1) {
+		maxComboCount = 3;
+	}
+	else if (WeaponIndex == 2) {
+		maxComboCount = 4;
+	}
+
 	if (comboUpdate) {
 		comboUpdate = false;
 		comboCount += 1;
+
+		if (comboCount > maxComboCount) {
+			return;
+		}
 
 		if (comboCount > 0) {
 			BasicAttack();
