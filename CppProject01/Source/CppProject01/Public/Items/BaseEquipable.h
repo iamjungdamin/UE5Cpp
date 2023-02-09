@@ -29,9 +29,6 @@ public:
 
 protected:
 	UPROPERTY(VisibleAnywhere)
-		UCapsuleComponent* Capsule;
-
-	UPROPERTY(VisibleAnywhere)
 		USkeletalMeshComponent* ItemSkeletalMesh;
 
 	UPROPERTY(VisibleAnywhere)

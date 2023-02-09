@@ -10,12 +10,12 @@ ABaseWeapon::ABaseWeapon()
 
 void ABaseWeapon::BeginPlay()
 {
-	ABaseEquipable::BeginPlay();
+	Super::BeginPlay();
 }
 
 void ABaseWeapon::Tick(float DeltaTime)
 {
-	ABaseEquipable::Tick(DeltaTime);
+	Super::Tick(DeltaTime);
 }
 
 void ABaseWeapon::OnEquipped()

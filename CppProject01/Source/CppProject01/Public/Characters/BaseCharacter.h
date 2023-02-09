@@ -4,20 +4,20 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "OliveCharacter.generated.h"
+#include "BaseCharacter.generated.h"
 
 class USpringArmComponent;
 class UCameraComponent;
 class ABaseWeapon;
 
 UCLASS()
-class CPPPROJECT01_API AOliveCharacter : public ACharacter
+class CPPPROJECT01_API ABaseCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this character's properties
-	AOliveCharacter();
+	ABaseCharacter();
 
 protected:
 	// Called when the game starts or when spawned
@@ -43,6 +43,8 @@ private:
 		UCameraComponent* ViewCamera;
 
 	bool isIdle = true;
+	float hp = 1000.f;
+	float maxHp;
 
 	ABaseWeapon* Weapon;
 	int WeaponIndex;
@@ -50,11 +52,11 @@ private:
 	int comboCount = 0;
 	bool comboUpdate = false;
 
-private:	
+private:
 	// Animation Montages
 	UPROPERTY(EditDefaultsOnly, Category = Montages)
 		UAnimMontage* DashMontage;
-	
+
 	UPROPERTY(EditDefaultsOnly, Category = Montages)
 		UAnimMontage* BasicAttackMontage[3];
 

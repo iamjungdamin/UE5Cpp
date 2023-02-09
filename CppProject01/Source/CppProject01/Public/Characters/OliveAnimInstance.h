@@ -19,7 +19,7 @@ public:
 	virtual void NativeUpdateAnimation(float DeltaTime) override;
 
 	UPROPERTY(BlueprintReadOnly)
-	class AOliveCharacter* Owner;
+	class ABaseCharacter* Owner;
 
 	UPROPERTY(BlueprintReadOnly, Category = Movement)
 	class UCharacterMovementComponent* Movement;

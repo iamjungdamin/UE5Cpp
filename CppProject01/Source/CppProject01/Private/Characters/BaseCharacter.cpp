@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Characters/OliveCharacter.h"
+#include "Characters/BaseCharacter.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -14,9 +14,9 @@
 #include "Items/ElectricSword.h"
 
 // Sets default values
-AOliveCharacter::AOliveCharacter()
+ABaseCharacter::ABaseCharacter()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	bUseControllerRotationPitch = false;
@@ -32,21 +32,21 @@ AOliveCharacter::AOliveCharacter()
 	ViewCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("ViewCamera"));
 	ViewCamera->SetupAttachment(CameraBoom);
 
-	// todo: set montages
-
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 }
 
 // Called when the game starts or when spawned
-void AOliveCharacter::BeginPlay()
+void ABaseCharacter::BeginPlay()
 {
-	Super::BeginPlay(); 
-	
+	Super::BeginPlay();
+
+	maxHp = hp;
+
 	WeaponIndex = 0;
 	SetWeapon(WeaponIndex);
 }
 
-void AOliveCharacter::MoveForward(float Value)
+void ABaseCharacter::MoveForward(float Value)
 {
 	if (!isIdle) {
 		return;
@@ -65,7 +65,7 @@ void AOliveCharacter::MoveForward(float Value)
 	}
 }
 
-void AOliveCharacter::MoveRight(float Value)
+void ABaseCharacter::MoveRight(float Value)
 {
 	if (!isIdle) {
 		return;
@@ -78,54 +78,54 @@ void AOliveCharacter::MoveRight(float Value)
 		// find out which way is right
 		const FRotator ControlRotation = GetControlRotation();
 		const FRotator YawRotation{ 0.f, ControlRotation.Yaw, 0.f };
-		
+
 		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 		AddMovementInput(Direction, Value);
 	}
 }
 
-void AOliveCharacter::Turn(float Value)
+void ABaseCharacter::Turn(float Value)
 {
 	AddControllerYawInput(Value);
 }
 
-void AOliveCharacter::LookUp(float Value)
+void ABaseCharacter::LookUp(float Value)
 {
 	AddControllerPitchInput(Value);
 }
 
 // Called every frame
-void AOliveCharacter::Tick(float DeltaTime)
+void ABaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
 }
 
 // Called to bind functionality to input
-void AOliveCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	PlayerInputComponent->BindAxis(FName("MoveForward"), this, &AOliveCharacter::MoveForward);
-	PlayerInputComponent->BindAxis(FName("MoveRight"), this, &AOliveCharacter::MoveRight);
-	PlayerInputComponent->BindAxis(FName("Turn"), this, &AOliveCharacter::Turn);
-	PlayerInputComponent->BindAxis(FName("LookUp"), this, &AOliveCharacter::LookUp);
-	
+	PlayerInputComponent->BindAxis(FName("MoveForward"), this, &ABaseCharacter::MoveForward);
+	PlayerInputComponent->BindAxis(FName("MoveRight"), this, &ABaseCharacter::MoveRight);
+	PlayerInputComponent->BindAxis(FName("Turn"), this, &ABaseCharacter::Turn);
+	PlayerInputComponent->BindAxis(FName("LookUp"), this, &ABaseCharacter::LookUp);
+
 	PlayerInputComponent->BindAction(FName("Jump"), IE_Pressed, this, &ACharacter::Jump);
 
-	PlayerInputComponent->BindAction(FName("ChangeWeapon"), IE_Pressed, this, &AOliveCharacter::ChangeWeapon);
-	PlayerInputComponent->BindAction(FName("Dash"), IE_Pressed, this, &AOliveCharacter::Dash);
+	PlayerInputComponent->BindAction(FName("ChangeWeapon"), IE_Pressed, this, &ABaseCharacter::ChangeWeapon);
+	PlayerInputComponent->BindAction(FName("Dash"), IE_Pressed, this, &ABaseCharacter::Dash);
 
-	PlayerInputComponent->BindAction(FName("LeftClick"), IE_Pressed, this, &AOliveCharacter::ComboAttack);
-	PlayerInputComponent->BindAction(FName("RightClick"), IE_Pressed, this, &AOliveCharacter::Charge);
-	PlayerInputComponent->BindAction(FName("RightClick"), IE_Released, this, &AOliveCharacter::ChargedAttack);
-	PlayerInputComponent->BindAction(FName("One"), IE_Pressed, this, &AOliveCharacter::Skill01);
-	PlayerInputComponent->BindAction(FName("Two"), IE_Pressed, this, &AOliveCharacter::Skill02);
-	PlayerInputComponent->BindAction(FName("Three"), IE_Pressed, this, &AOliveCharacter::Skill03);
+	PlayerInputComponent->BindAction(FName("LeftClick"), IE_Pressed, this, &ABaseCharacter::ComboAttack);
+	PlayerInputComponent->BindAction(FName("RightClick"), IE_Pressed, this, &ABaseCharacter::Charge);
+	PlayerInputComponent->BindAction(FName("RightClick"), IE_Released, this, &ABaseCharacter::ChargedAttack);
+	PlayerInputComponent->BindAction(FName("One"), IE_Pressed, this, &ABaseCharacter::Skill01);
+	PlayerInputComponent->BindAction(FName("Two"), IE_Pressed, this, &ABaseCharacter::Skill02);
+	PlayerInputComponent->BindAction(FName("Three"), IE_Pressed, this, &ABaseCharacter::Skill03);
 
 }
 
-void AOliveCharacter::SetWeapon(int value)
+void ABaseCharacter::SetWeapon(int value)
 {
 	if (Weapon) {
 		Weapon->OnUnequipped();
@@ -155,12 +155,12 @@ void AOliveCharacter::SetWeapon(int value)
 	}
 }
 
-ABaseWeapon* AOliveCharacter::GetWeapon() const
+ABaseWeapon* ABaseCharacter::GetWeapon() const
 {
 	return Weapon;
 }
 
-void AOliveCharacter::ChangeWeapon()
+void ABaseCharacter::ChangeWeapon()
 {
 	if (!isIdle) {
 		return;
@@ -172,7 +172,7 @@ void AOliveCharacter::ChangeWeapon()
 	UE_LOG(LogTemp, Warning, TEXT("WeaponIndex = %d"), WeaponIndex);
 }
 
-void AOliveCharacter::Dash()
+void ABaseCharacter::Dash()
 {
 	if (!isIdle) {
 		return;
@@ -189,7 +189,7 @@ void AOliveCharacter::Dash()
 
 }
 
-void AOliveCharacter::ComboAttack()
+void ABaseCharacter::ComboAttack()
 {
 	if (!isIdle) {
 		comboUpdate = true;
@@ -199,7 +199,7 @@ void AOliveCharacter::ComboAttack()
 	BasicAttack();
 }
 
-void AOliveCharacter::BasicAttack()
+void ABaseCharacter::BasicAttack()
 {
 	UE_LOG(LogTemp, Warning, TEXT("BasicAttack"));
 
@@ -229,7 +229,7 @@ void AOliveCharacter::BasicAttack()
 
 }
 
-void AOliveCharacter::Charge()
+void ABaseCharacter::Charge()
 {
 	if (!isIdle) {
 		return;
@@ -247,7 +247,7 @@ void AOliveCharacter::Charge()
 
 }
 
-void AOliveCharacter::ChargedAttack()
+void ABaseCharacter::ChargedAttack()
 {
 	UE_LOG(LogTemp, Warning, TEXT("ChargedAttack"));
 
@@ -260,7 +260,7 @@ void AOliveCharacter::ChargedAttack()
 
 }
 
-void AOliveCharacter::Skill01()
+void ABaseCharacter::Skill01()
 {
 	if (!isIdle) {
 		return;
@@ -278,7 +278,7 @@ void AOliveCharacter::Skill01()
 
 }
 
-void AOliveCharacter::Skill02()
+void ABaseCharacter::Skill02()
 {
 	if (!isIdle) {
 		return;
@@ -295,7 +295,7 @@ void AOliveCharacter::Skill02()
 	}
 }
 
-void AOliveCharacter::Skill03()
+void ABaseCharacter::Skill03()
 {
 	if (!isIdle) {
 		return;
@@ -312,12 +312,12 @@ void AOliveCharacter::Skill03()
 	}
 }
 
-void AOliveCharacter::SetIsIdle(bool value)
+void ABaseCharacter::SetIsIdle(bool value)
 {
 	isIdle = value;
 }
 
-void AOliveCharacter::SaveCombo()
+void ABaseCharacter::SaveCombo()
 {
 	int maxComboCount = 0;
 	if (WeaponIndex == 0) {
@@ -345,7 +345,7 @@ void AOliveCharacter::SaveCombo()
 
 }
 
-void AOliveCharacter::ResetCombo()
+void ABaseCharacter::ResetCombo()
 {
 	comboCount = 0;
 }

@@ -12,12 +12,8 @@ ABaseEquipable::ABaseEquipable()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	Capsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Capsule"));
-	Capsule->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	SetRootComponent(Capsule);
-
 	ItemSkeletalMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("ItemSkeletalMesh"));
-	ItemSkeletalMesh->SetupAttachment(GetRootComponent());
+	SetRootComponent(ItemSkeletalMesh);
 
 	ItemStaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ItemStaticMesh"));
 	ItemStaticMesh->SetupAttachment(GetRootComponent());

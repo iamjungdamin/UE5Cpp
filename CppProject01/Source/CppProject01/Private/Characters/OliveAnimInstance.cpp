@@ -2,7 +2,7 @@
 
 
 #include "Characters/OliveAnimInstance.h"
-#include "Characters/OliveCharacter.h"
+#include "Characters/BaseCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 
@@ -10,7 +10,7 @@ void UOliveAnimInstance::NativeInitializeAnimation()
 {
 	Super::NativeInitializeAnimation();
 
-	Owner = Cast<AOliveCharacter>(TryGetPawnOwner());
+	Owner = Cast<ABaseCharacter>(TryGetPawnOwner());
 	if (Owner) {
 		Movement = Owner->GetCharacterMovement();
 	}
