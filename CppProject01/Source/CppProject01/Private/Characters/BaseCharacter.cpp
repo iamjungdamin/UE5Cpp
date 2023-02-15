@@ -169,7 +169,7 @@ void ABaseCharacter::ChangeWeapon()
 	WeaponIndex = (WeaponIndex + 1) % 3;
 	SetWeapon(WeaponIndex);
 
-	UE_LOG(LogTemp, Warning, TEXT("WeaponIndex = %d"), WeaponIndex);
+	UE_LOG(LogTemp, Log, TEXT("WeaponIndex = %d"), WeaponIndex);
 }
 
 void ABaseCharacter::Dash()
@@ -201,7 +201,7 @@ void ABaseCharacter::ComboAttack()
 
 void ABaseCharacter::BasicAttack()
 {
-	UE_LOG(LogTemp, Warning, TEXT("BasicAttack"));
+	UE_LOG(LogTemp, Log, TEXT("BasicAttack"));
 
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 	if (AnimInstance && BasicAttackMontage[WeaponIndex]) {
@@ -235,7 +235,7 @@ void ABaseCharacter::Charge()
 		return;
 	}
 
-	UE_LOG(LogTemp, Warning, TEXT("Charge"));
+	UE_LOG(LogTemp, Log, TEXT("Charge"));
 
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 	if (AnimInstance && ChargedAttackMontage[WeaponIndex]) {
@@ -249,7 +249,7 @@ void ABaseCharacter::Charge()
 
 void ABaseCharacter::ChargedAttack()
 {
-	UE_LOG(LogTemp, Warning, TEXT("ChargedAttack"));
+	UE_LOG(LogTemp, Log, TEXT("ChargedAttack"));
 
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 	if (AnimInstance && ChargedAttackMontage[WeaponIndex]) {
@@ -266,7 +266,7 @@ void ABaseCharacter::Skill01()
 		return;
 	}
 
-	UE_LOG(LogTemp, Warning, TEXT("Skill01"));
+	UE_LOG(LogTemp, Log, TEXT("Skill01"));
 
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 	if (AnimInstance && SkillMontage[WeaponIndex]) {
@@ -284,7 +284,7 @@ void ABaseCharacter::Skill02()
 		return;
 	}
 
-	UE_LOG(LogTemp, Warning, TEXT("Skill02"));
+	UE_LOG(LogTemp, Log, TEXT("Skill02"));
 
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 	if (AnimInstance && SkillMontage[WeaponIndex]) {
@@ -301,7 +301,7 @@ void ABaseCharacter::Skill03()
 		return;
 	}
 
-	UE_LOG(LogTemp, Warning, TEXT("Skill03"));
+	UE_LOG(LogTemp, Log, TEXT("Skill03"));
 
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 	if (AnimInstance && SkillMontage[WeaponIndex]) {

@@ -27,8 +27,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 protected:
-	UPROPERTY(VisibleAnywhere)
-		float Damage;
+	float damage;
 
 public:
 	FName HandSocketName;

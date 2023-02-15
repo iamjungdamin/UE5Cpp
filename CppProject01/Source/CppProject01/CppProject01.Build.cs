@@ -7,8 +7,9 @@ public class CppProject01 : ModuleRules
 	public CppProject01(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
+
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore",
+		"AIModule"});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

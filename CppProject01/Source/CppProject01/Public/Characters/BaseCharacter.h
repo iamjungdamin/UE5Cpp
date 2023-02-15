@@ -52,7 +52,7 @@ private:
 	int comboCount = 0;
 	bool comboUpdate = false;
 
-private:
+protected:
 	// Animation Montages
 	UPROPERTY(EditDefaultsOnly, Category = Montages)
 		UAnimMontage* DashMontage;

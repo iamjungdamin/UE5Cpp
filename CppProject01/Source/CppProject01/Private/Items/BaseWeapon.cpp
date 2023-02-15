@@ -20,16 +20,16 @@ void ABaseWeapon::Tick(float DeltaTime)
 
 void ABaseWeapon::OnEquipped()
 {
-	IsEquipped = true;
+	isEquipped = true;
 	AttachActor(HandSocketName);
 }
 
 void ABaseWeapon::SetDamge(int value)
 {
-	Damage = value;
+	damage = value;
 }
 
 float ABaseWeapon::GetDamage() const
 {
-	return Damage;
+	return damage;
 }

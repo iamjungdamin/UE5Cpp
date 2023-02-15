@@ -34,24 +34,24 @@ void ABaseEquipable::Tick(float DeltaTime)
 
 void ABaseEquipable::OnEquipped()
 {
-	IsEquipped = true;
+	isEquipped = true;
 }
 
 void ABaseEquipable::OnUnequipped()
 {
-	if (IsEquipped) {
-		IsEquipped = false;
+	if (isEquipped) {
+		isEquipped = false;
 	}
 }
 
 void ABaseEquipable::SetIsEquipped(bool value)
 {
-	IsEquipped = value;
+	isEquipped = value;
 }
 
 bool ABaseEquipable::GetIsEquipped() const
 {
-	return IsEquipped;
+	return isEquipped;
 }
 
 void ABaseEquipable::AttachActor(FName socketName)

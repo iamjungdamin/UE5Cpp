@@ -35,7 +35,7 @@ protected:
 		UStaticMeshComponent* ItemStaticMesh;
 	
 	UPROPERTY(VisibleAnywhere)
-		bool IsEquipped = false;
+		bool isEquipped = false;
 
 public:
 	virtual void OnEquipped();
