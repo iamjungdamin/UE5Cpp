@@ -22,8 +22,8 @@ public:
 	virtual void OnPossess(APawn* InPawn) override;
 
 public:
-	FName key_HomePos;
-	FName key_PatrolPos;
+	static const FName key_HomePos;
+	static const FName key_PatrolPos;
 
 private:
 	UPROPERTY()

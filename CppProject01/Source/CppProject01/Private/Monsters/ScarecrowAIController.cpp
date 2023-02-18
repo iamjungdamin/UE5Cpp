@@ -7,6 +7,10 @@
 #include "BehaviorTree/BlackboardData.h"
 #include "BehaviorTree/BlackboardComponent.h"
 
+
+const FName AScarecrowAIController::key_HomePos(TEXT("HomePos"));
+const FName AScarecrowAIController::key_PatrolPos(TEXT("PatrolPos"));
+
 AScarecrowAIController::AScarecrowAIController()
 {
 	ConstructorHelpers::FObjectFinder<UBlackboardData>BBObject(TEXT("/Game/Blueprints/Monsters/BB_Scarecrow"));
@@ -18,9 +22,6 @@ AScarecrowAIController::AScarecrowAIController()
 	if (BTObject.Succeeded()) {
 		BTAsset = BTObject.Object;
 	}
-
-	key_HomePos = FName("HomePos");
-	key_PatrolPos = FName("PatrolPos");
 }
 
 void AScarecrowAIController::OnPossess(APawn* InPawn)
