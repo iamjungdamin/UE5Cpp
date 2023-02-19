@@ -31,10 +31,4 @@ protected:
 	float maxHp;
 
 	float damage;
-	
-	UPROPERTY(EditDefaultsOnly, Category = "AI Navigation")
-		AActor* PatrolTarget;
-
-	UPROPERTY(EditDefaultsOnly, Category = "AI Navigation")
-		TArray<AActor*> PatrolTargets;
 };

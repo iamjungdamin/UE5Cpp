@@ -24,7 +24,7 @@ public:
 public:
 	static const FName key_HomePos;
 	static const FName key_PatrolPos;
-	float key_Speed;
+	static const FName key_Target;
 
 private:
 	UPROPERTY()

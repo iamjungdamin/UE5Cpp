@@ -9,7 +9,7 @@
 UENUM(BlueprintType)
 enum class ESpeed : uint8 {
 	PATROL,
-	RUN
+	CHASE
 };
 
 /**

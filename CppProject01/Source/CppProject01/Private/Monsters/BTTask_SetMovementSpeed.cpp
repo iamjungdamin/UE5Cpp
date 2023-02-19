@@ -28,7 +28,7 @@ EBTNodeResult::Type UBTTask_SetMovementSpeed::ExecuteTask(UBehaviorTreeComponent
 		MovementComp->MaxWalkSpeed = 100.f;
 		return EBTNodeResult::Succeeded;
 	}
-	else if (speed == ESpeed::RUN) {
+	else if (speed == ESpeed::CHASE) {
 		MovementComp->MaxWalkSpeed = 300.f;
 		return EBTNodeResult::Succeeded;
 	}
