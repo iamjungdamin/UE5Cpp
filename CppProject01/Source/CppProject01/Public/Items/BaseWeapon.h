@@ -6,6 +6,8 @@
 #include "Items/BaseEquipable.h"
 #include "BaseWeapon.generated.h"
 
+class UCollisionComponent;
+
 /**
  * 
  */
@@ -25,6 +27,10 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+private:
+	UPROPERTY(VisibleAnywhere)
+		UCollisionComponent* CollisionComp;
 
 protected:
 	float damage;

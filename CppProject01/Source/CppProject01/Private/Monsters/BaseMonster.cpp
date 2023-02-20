@@ -9,6 +9,12 @@ ABaseMonster::ABaseMonster()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+}
+
+// Called when the game starts or when spawned
+void ABaseMonster::BeginPlay()
+{
+	Super::BeginPlay();
 
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
@@ -17,12 +23,6 @@ ABaseMonster::ABaseMonster()
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->bUseControllerDesiredRotation = false;
 	GetCharacterMovement()->RotationRate = FRotator(0.f, 480.f, 0.f);
-}
-
-// Called when the game starts or when spawned
-void ABaseMonster::BeginPlay()
-{
-	Super::BeginPlay();
 
 	maxHp = hp;
 	

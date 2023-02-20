@@ -2,10 +2,14 @@
 
 
 #include "Items/BaseWeapon.h"
+#include "UObject/ConstructorHelpers.h"
+#include "Items/CollisionComponent.h"
 
 ABaseWeapon::ABaseWeapon()
 {
 	PrimaryActorTick.bCanEverTick = true;
+
+	CollisionComp = CreateDefaultSubobject<UCollisionComponent>(TEXT("CollisionComp"));
 }
 
 void ABaseWeapon::BeginPlay()
@@ -22,6 +26,9 @@ void ABaseWeapon::OnEquipped()
 {
 	isEquipped = true;
 	AttachActor(HandSocketName);
+
+	CollisionComp->SetCollisionMeshComp(ItemStaticMesh);
+	// todo: owner´Â ignore·Î
 }
 
 void ABaseWeapon::SetDamge(int value)
