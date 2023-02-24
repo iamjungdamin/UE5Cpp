@@ -22,5 +22,5 @@ APlayer01Character::APlayer01Character()
 		UE_LOG(LogTemp, Warning, TEXT("Failed to Load Assets"));
 	}
 	
-	AutoPossessPlayer = EAutoReceiveInput::Player0;
+	//AutoPossessPlayer = EAutoReceiveInput::Player0;
 }

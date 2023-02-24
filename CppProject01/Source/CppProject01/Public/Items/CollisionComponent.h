@@ -27,7 +27,7 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
-	bool isCollisionEnabled = true;
+	bool isCollisionEnabled = false;
 	// todo: 디폴트 false, 공격 시에만 true
 	
 	UPROPERTY()

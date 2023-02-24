@@ -21,6 +21,10 @@
 			"TargetAllowList": [
 				"Editor"
 			]
+		},
+		{
+			"Name": "UVEditor",
+			"Enabled": true
 		}
 	]
 }
