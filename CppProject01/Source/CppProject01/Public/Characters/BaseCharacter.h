@@ -53,6 +53,8 @@ private:
 	bool comboUpdate = false;
 
 protected:
+	void SetMontages(FString folderPath);
+
 	// Animation Montages
 	UPROPERTY(EditDefaultsOnly, Category = Montages)
 		UAnimMontage* DashMontage;

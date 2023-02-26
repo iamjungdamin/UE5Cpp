@@ -19,14 +19,16 @@ ABaseCharacter::ABaseCharacter()
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	GetMesh()->SetRelativeLocation(FVector(0.f, 0.f, -90.f));
+	GetMesh()->SetRelativeRotation(FRotator(0.f, -90.f, 0.f));
+
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	CameraBoom->SetupAttachment(GetRootComponent());
 	CameraBoom->TargetArmLength = 300.f;
+	CameraBoom->SetRelativeLocationAndRotation(FVector(0.f, 0.f, 60.f), FRotator(0.f, -10.f, 0.f));
 
 	ViewCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("ViewCamera"));
 	ViewCamera->SetupAttachment(CameraBoom);
-
-	//AutoPossessPlayer = EAutoReceiveInput::Player0;
 }
 
 // Called when the game starts or when spawned
@@ -123,6 +125,49 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	PlayerInputComponent->BindAction(FName("Two"), IE_Pressed, this, &ABaseCharacter::Skill02);
 	PlayerInputComponent->BindAction(FName("Three"), IE_Pressed, this, &ABaseCharacter::Skill03);
 
+}
+
+void ABaseCharacter::SetMontages(FString folderPath)
+{
+	TArray<FString> FileNames = {
+		"/AM_Dash",
+
+		"/AM_FireBasicAttack",
+		"/AM_IceBasicAttack",
+		"/AM_ElectricBasicAttack",
+
+		"/AM_FireChargedAttack",
+		"/AM_IceChargedAttack",
+		"/AM_ElectricChargedAttack",
+
+		"/AM_FireSkill",
+		"/AM_IceSkill",
+		"/AM_ElectricSkill"
+	};
+
+	for (int i = 0; i < FileNames.Num(); ++i) {
+		FString Path = folderPath + FileNames[i];
+		ConstructorHelpers::FObjectFinder<UAnimMontage>MontageAsset(*Path);
+		
+		if (MontageAsset.Succeeded()) {
+			if (i == 0) {
+				DashMontage = MontageAsset.Object;
+			}
+			else if (i < 4) {
+				BasicAttackMontage[i - 1] = MontageAsset.Object;
+			}
+			else if (i < 7) {
+				ChargedAttackMontage[i - 4] = MontageAsset.Object;
+			}
+			else if (i < 10) {
+				SkillMontage[i - 7] = MontageAsset.Object;
+			}
+		}
+		else {
+			UE_LOG(LogTemp, Warning, TEXT("Failed to Load Assets"));
+			continue;
+		}
+	}
 }
 
 void ABaseCharacter::SetWeapon(int value)

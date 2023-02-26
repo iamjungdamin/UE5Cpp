@@ -21,4 +21,13 @@ APlayer02Character::APlayer02Character()
 	else {
 		UE_LOG(LogTemp, Warning, TEXT("Failed to Load Assets"));
 	}
+
+	GetMesh()->SetAnimationMode(EAnimationMode::AnimationBlueprint);
+	ConstructorHelpers::FClassFinder<UAnimInstance>AnimInstance(TEXT("/Game/Blueprints/Characters/ABP_Player02Anim"));
+	if (AnimInstance.Succeeded()) {
+		GetMesh()->SetAnimInstanceClass(AnimInstance.Class);
+	}
+
+	FString folderPath = "/Game/Blueprints/Characters/Animations/Player02";
+	SetMontages(folderPath);
 }

@@ -21,6 +21,13 @@ APlayer01Character::APlayer01Character()
 	else {
 		UE_LOG(LogTemp, Warning, TEXT("Failed to Load Assets"));
 	}
-	
-	//AutoPossessPlayer = EAutoReceiveInput::Player0;
+
+	GetMesh()->SetAnimationMode(EAnimationMode::AnimationBlueprint);
+	ConstructorHelpers::FClassFinder<UAnimInstance>AnimInstance(TEXT("/Game/Blueprints/Characters/ABP_OliveAnim"));
+	if (AnimInstance.Succeeded()) {
+		GetMesh()->SetAnimInstanceClass(AnimInstance.Class);
+	}
+
+	FString folderPath = "/Game/Blueprints/Characters/Animations/Player01";
+	SetMontages(folderPath);
 }
