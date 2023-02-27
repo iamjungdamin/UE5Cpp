@@ -28,13 +28,21 @@ public:
 
 private:
 	bool isCollisionEnabled = false;
-	// todo: 디폴트 false, 공격 시에만 true
 	
 	UPROPERTY()
 		UPrimitiveComponent* CollisionMeshComp;
 
 	UPROPERTY()
 		TArray<AActor*> AlreadyHitActors;
+	
+	UPROPERTY()
+		TArray<TEnumAsByte<EObjectTypeQuery>> ObjectTypes;
+
+	UPROPERTY()
+		TArray<AActor*> ActorsToIgnore;
+	
+	UPROPERTY()
+		TArray<FHitResult> HitResults;
 
 public:
 	void SetCollisionMeshComp(UPrimitiveComponent* value);
@@ -44,14 +52,13 @@ private:
 	FVector EndLoc;
 	float radius;
 
-	TArray<TEnumAsByte<EObjectTypeQuery>> ObjectTypes;
-	TArray<AActor*> ActorsToIgnore;
-	TArray<FHitResult> HitResults;
-
 public:
 	void EnableCollision();
 	void DisableCollision();
 	void ClearHitActors();
 
 	void CollisionTrace();
+
+	void AddActorsToIgnore(AActor* value);
+	void RemoveActorsToIgnore(AActor* value);
 };

@@ -28,7 +28,12 @@ void ABaseWeapon::OnEquipped()
 	AttachActor(HandSocketName);
 
 	CollisionComp->SetCollisionMeshComp(ItemStaticMesh);
-	// todo: owner´Â ignore·Î
+	CollisionComp->AddActorsToIgnore(GetOwner());
+}
+
+UCollisionComponent* ABaseWeapon::GetCollisionComp() const
+{
+	return CollisionComp;
 }
 
 void ABaseWeapon::SetDamge(int value)

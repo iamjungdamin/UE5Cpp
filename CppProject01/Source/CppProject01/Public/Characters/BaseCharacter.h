@@ -69,9 +69,6 @@ protected:
 		UAnimMontage* SkillMontage[3];
 
 private:
-	void SetWeapon(int value);
-	ABaseWeapon* GetWeapon() const;
-
 	void ChangeWeapon();
 	void Dash();
 
@@ -84,6 +81,9 @@ private:
 	void Skill03();
 
 public:
+	void SetWeapon(int value);
+	ABaseWeapon* GetWeapon() const;
+
 	void SetIsIdle(bool value);
 
 	void SaveCombo();

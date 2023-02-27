@@ -170,41 +170,6 @@ void ABaseCharacter::SetMontages(FString folderPath)
 	}
 }
 
-void ABaseCharacter::SetWeapon(int value)
-{
-	if (Weapon) {
-		Weapon->OnUnequipped();
-		Weapon->Destroy();
-	}
-
-	if (WeaponIndex == 0) {
-		Weapon = GetWorld()->SpawnActor<AFireSword>(GetActorLocation(), GetActorRotation());
-		Weapon->SetOwner(Cast<AActor>(this));
-		Weapon->SetInstigator(Cast<APawn>(this));
-
-		Weapon->OnEquipped();
-	}
-	else if (WeaponIndex == 1) {
-		Weapon = GetWorld()->SpawnActor<AIceSword>(GetActorLocation(), GetActorRotation());
-		Weapon->SetOwner(Cast<AActor>(this));
-		Weapon->SetInstigator(Cast<APawn>(this));
-
-		Weapon->OnEquipped();
-	}
-	else if (WeaponIndex == 2) {
-		Weapon = GetWorld()->SpawnActor<AElectricSword>(GetActorLocation(), GetActorRotation());
-		Weapon->SetOwner(Cast<AActor>(this));
-		Weapon->SetInstigator(Cast<APawn>(this));
-
-		Weapon->OnEquipped();
-	}
-}
-
-ABaseWeapon* ABaseCharacter::GetWeapon() const
-{
-	return Weapon;
-}
-
 void ABaseCharacter::ChangeWeapon()
 {
 	if (!isIdle) {
@@ -355,6 +320,41 @@ void ABaseCharacter::Skill03()
 		AnimInstance->Montage_Play(SkillMontage[WeaponIndex]);
 		AnimInstance->Montage_JumpToSection(FName("03"), SkillMontage[WeaponIndex]);
 	}
+}
+
+void ABaseCharacter::SetWeapon(int value)
+{
+	if (Weapon) {
+		Weapon->OnUnequipped();
+		Weapon->Destroy();
+	}
+
+	if (WeaponIndex == 0) {
+		Weapon = GetWorld()->SpawnActor<AFireSword>(GetActorLocation(), GetActorRotation());
+		Weapon->SetOwner(Cast<AActor>(this));
+		Weapon->SetInstigator(Cast<APawn>(this));
+
+		Weapon->OnEquipped();
+	}
+	else if (WeaponIndex == 1) {
+		Weapon = GetWorld()->SpawnActor<AIceSword>(GetActorLocation(), GetActorRotation());
+		Weapon->SetOwner(Cast<AActor>(this));
+		Weapon->SetInstigator(Cast<APawn>(this));
+
+		Weapon->OnEquipped();
+	}
+	else if (WeaponIndex == 2) {
+		Weapon = GetWorld()->SpawnActor<AElectricSword>(GetActorLocation(), GetActorRotation());
+		Weapon->SetOwner(Cast<AActor>(this));
+		Weapon->SetInstigator(Cast<APawn>(this));
+
+		Weapon->OnEquipped();
+	}
+}
+
+ABaseWeapon* ABaseCharacter::GetWeapon() const
+{
+	return Weapon;
 }
 
 void ABaseCharacter::SetIsIdle(bool value)

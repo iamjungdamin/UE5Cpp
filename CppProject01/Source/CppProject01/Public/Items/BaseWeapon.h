@@ -41,6 +41,8 @@ public:
 public:
 	virtual void OnEquipped() override;
 
+	UCollisionComponent* GetCollisionComp() const;
+
 	void SetDamge(int value);
 	float GetDamage() const;
 };

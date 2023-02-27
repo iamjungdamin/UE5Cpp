@@ -19,6 +19,9 @@ UCollisionComponent::UCollisionComponent()
 void UCollisionComponent::BeginPlay()
 {
 	Super::BeginPlay();
+
+	auto Pawn = UEngineTypes::ConvertToObjectType(ECollisionChannel::ECC_Pawn);
+	ObjectTypes.Add(Pawn);
 }
 
 
@@ -60,9 +63,6 @@ void UCollisionComponent::CollisionTrace()
 	EndLoc = CollisionMeshComp->GetSocketLocation("CollisionEnd");
 	radius = 20.f;
 
-	auto Pawn = UEngineTypes::ConvertToObjectType(ECollisionChannel::ECC_Pawn);
-	ObjectTypes.Add(Pawn);
-
 	bool result = UKismetSystemLibrary::SphereTraceMultiForObjects(
 		GetWorld(), StartLoc, EndLoc, radius,
 		ObjectTypes, false, ActorsToIgnore,
@@ -88,5 +88,15 @@ void UCollisionComponent::CollisionTrace()
 		
 		//HitActor.OnHit();
 	}
+}
+
+void UCollisionComponent::AddActorsToIgnore(AActor* value)
+{
+	ActorsToIgnore.AddUnique(value);
+}
+
+void UCollisionComponent::RemoveActorsToIgnore(AActor* value)
+{
+	ActorsToIgnore.Remove(value);
 }
 
