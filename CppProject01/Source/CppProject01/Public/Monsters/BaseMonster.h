@@ -6,6 +6,14 @@
 #include "GameFramework/Character.h"
 #include "BaseMonster.generated.h"
 
+UENUM(BlueprintType)
+enum class EState : uint8 {
+	NOTHING,
+	PATROL,
+	CHASE,
+	ATTACK
+};
+
 UCLASS()
 class CPPPROJECT01_API ABaseMonster : public ACharacter
 {
@@ -30,5 +38,14 @@ protected:
 	float hp;
 	float maxHp;
 
+	EState state = EState::PATROL;
+
 	float damage;
+
+public:
+	void LoseHp(float amount);
+	int GetHp();
+
+	void SetState(EState value);
+	EState GetState();
 };

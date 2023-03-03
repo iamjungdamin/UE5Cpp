@@ -6,16 +6,9 @@
 #include "BehaviorTree/BTTaskNode.h"
 #include "BTTask_SetMovementSpeed.generated.h"
 
-UENUM(BlueprintType)
-enum class ESpeed : uint8 {
-	PATROL,
-	CHASE
-};
-
 /**
  * 
  */
-
 UCLASS()
 class CPPPROJECT01_API UBTTask_SetMovementSpeed : public UBTTaskNode
 {
@@ -24,8 +17,4 @@ class CPPPROJECT01_API UBTTask_SetMovementSpeed : public UBTTaskNode
 public:
 	UBTTask_SetMovementSpeed();
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
-
-public:
-	UPROPERTY(EditAnywhere)
-		ESpeed speed = ESpeed::PATROL;
 };

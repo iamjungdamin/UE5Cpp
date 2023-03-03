@@ -4,6 +4,7 @@
 #include "Monsters/BTTask_SetMovementSpeed.h"
 #include "Monsters/ScarecrowAIController.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Monsters/BaseMonster.h"
 
 UBTTask_SetMovementSpeed::UBTTask_SetMovementSpeed()
 {
@@ -24,11 +25,12 @@ EBTNodeResult::Type UBTTask_SetMovementSpeed::ExecuteTask(UBehaviorTreeComponent
 		return EBTNodeResult::Failed;
 	}
 
-	if (speed == ESpeed::PATROL) {
+	ABaseMonster* ControllingCharacter = Cast<ABaseMonster>(ControllingPawn);
+	if (ControllingCharacter->GetState() == EState::PATROL) {
 		MovementComp->MaxWalkSpeed = 100.f;
 		return EBTNodeResult::Succeeded;
 	}
-	else if (speed == ESpeed::CHASE) {
+	else if (ControllingCharacter->GetState() == EState::CHASE) {
 		MovementComp->MaxWalkSpeed = 300.f;
 		return EBTNodeResult::Succeeded;
 	}

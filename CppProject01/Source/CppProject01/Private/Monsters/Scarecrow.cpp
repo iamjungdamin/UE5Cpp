@@ -7,7 +7,7 @@
 
 AScarecrow::AScarecrow()
 {
-	ConstructorHelpers::FObjectFinder<USkeletalMesh>MeshAsset(TEXT("/Game/Blueprints/Monsters/Meshes/Ch14_nonPBR"));
+	ConstructorHelpers::FObjectFinder<USkeletalMesh>MeshAsset(TEXT("/Game/Blueprints/Monsters/Meshes/Scarecrow/Prisoner_B_Styperek"));
 	if (MeshAsset.Succeeded()) {
 		GetMesh()->SetSkeletalMesh(MeshAsset.Object);
 	}
@@ -15,7 +15,7 @@ AScarecrow::AScarecrow()
 		UE_LOG(LogTemp, Warning, TEXT("Failed to Load Assets"));
 	}
 
-	ConstructorHelpers::FObjectFinder<UMaterial>MaterialAsset(TEXT("/Game/Blueprints/Monsters/Meshes/Ch14_Body"));
+	ConstructorHelpers::FObjectFinder<UMaterial>MaterialAsset(TEXT("/Game/Blueprints/Monsters/Meshes/Scarecrow/Prisoner_material"));
 	if (MaterialAsset.Succeeded()) {
 		GetMesh()->SetMaterial(0, MaterialAsset.Object);
 	}
