@@ -25,6 +25,7 @@ public:
 	static const FName key_HomePos;
 	static const FName key_PatrolPos;
 	static const FName key_Target;
+	static const FName key_State;
 
 private:
 	UPROPERTY()

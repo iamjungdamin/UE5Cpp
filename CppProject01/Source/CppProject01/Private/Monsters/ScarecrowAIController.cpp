@@ -11,6 +11,7 @@
 const FName AScarecrowAIController::key_HomePos(TEXT("HomePos"));
 const FName AScarecrowAIController::key_PatrolPos(TEXT("PatrolPos"));
 const FName AScarecrowAIController::key_Target(TEXT("Target"));
+const FName AScarecrowAIController::key_State(TEXT("State"));
 
 AScarecrowAIController::AScarecrowAIController()
 {

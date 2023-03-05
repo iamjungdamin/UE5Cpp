@@ -47,22 +47,12 @@ void ABaseMonster::LoseHp(float amount)
 	hp -= amount;
 
 	if (hp <= 0) {
-		state = EState::NOTHING;
+		//
 	}
 }
 
 int ABaseMonster::GetHp()
 {
 	return hp;
-}
-
-void ABaseMonster::SetState(EState value)
-{
-	state = value;
-}
-
-EState ABaseMonster::GetState()
-{
-	return state;
 }
 

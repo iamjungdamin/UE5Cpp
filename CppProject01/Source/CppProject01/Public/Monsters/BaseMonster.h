@@ -38,14 +38,9 @@ protected:
 	float hp;
 	float maxHp;
 
-	EState state = EState::PATROL;
-
 	float damage;
 
 public:
 	void LoseHp(float amount);
 	int GetHp();
-
-	void SetState(EState value);
-	EState GetState();
 };

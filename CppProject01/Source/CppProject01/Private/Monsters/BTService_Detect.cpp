@@ -4,6 +4,7 @@
 #include "Monsters/BTService_Detect.h"
 #include "Monsters/ScarecrowAIController.h"
 #include "BehaviorTree/BlackboardComponent.h"
+
 #include "Characters/BaseCharacter.h"
 
 UBTService_Detect::UBTService_Detect()

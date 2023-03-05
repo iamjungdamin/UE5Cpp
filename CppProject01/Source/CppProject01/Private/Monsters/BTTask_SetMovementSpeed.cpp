@@ -3,6 +3,8 @@
 
 #include "Monsters/BTTask_SetMovementSpeed.h"
 #include "Monsters/ScarecrowAIController.h"
+#include "BehaviorTree/BlackboardComponent.h"
+
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Monsters/BaseMonster.h"
 
@@ -25,12 +27,13 @@ EBTNodeResult::Type UBTTask_SetMovementSpeed::ExecuteTask(UBehaviorTreeComponent
 		return EBTNodeResult::Failed;
 	}
 
-	ABaseMonster* ControllingCharacter = Cast<ABaseMonster>(ControllingPawn);
-	if (ControllingCharacter->GetState() == EState::PATROL) {
+	EState state = EState(OwnerComp.GetBlackboardComponent()->GetValueAsEnum(AScarecrowAIController::key_State));
+
+	if (state == EState::PATROL) {
 		MovementComp->MaxWalkSpeed = 100.f;
 		return EBTNodeResult::Succeeded;
 	}
-	else if (ControllingCharacter->GetState() == EState::CHASE) {
+	else if (state == EState::CHASE) {
 		MovementComp->MaxWalkSpeed = 300.f;
 		return EBTNodeResult::Succeeded;
 	}

@@ -4,6 +4,7 @@
 #include "Monsters/BTService_UpdateBehavior.h"
 #include "Monsters/ScarecrowAIController.h"
 #include "BehaviorTree/BlackboardComponent.h"
+
 #include "Monsters/BaseMonster.h"
 
 UBTService_UpdateBehavior::UBTService_UpdateBehavior()
@@ -33,10 +34,11 @@ void UBTService_UpdateBehavior::TickNode(UBehaviorTreeComponent& OwnerComp, uint
 
 	UObject* Target = OwnerComp.GetBlackboardComponent()->GetValueAsObject(AScarecrowAIController::key_Target);
 	if (nullptr == Target) {
-		ControllingCharacter->SetState(EState::PATROL);
+		OwnerComp.GetBlackboardComponent()->SetValueAsEnum(AScarecrowAIController::key_State, uint8(EState::PATROL));
 		return;
 	}
 
-	ControllingCharacter->SetState(EState::CHASE);
+	OwnerComp.GetBlackboardComponent()->SetValueAsEnum(AScarecrowAIController::key_State, uint8(EState::CHASE));
+
 
 }

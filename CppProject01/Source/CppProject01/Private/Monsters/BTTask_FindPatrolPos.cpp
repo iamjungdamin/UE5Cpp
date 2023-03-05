@@ -4,6 +4,7 @@
 #include "Monsters/BTTask_FindPatrolPos.h"
 #include "Monsters/ScarecrowAIController.h"
 #include "BehaviorTree/BlackboardComponent.h"
+
 #include "NavigationSystem.h"
 
 UBTTask_FindPatrolPos::UBTTask_FindPatrolPos()
