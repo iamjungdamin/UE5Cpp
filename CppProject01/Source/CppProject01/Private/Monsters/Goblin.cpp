@@ -25,6 +25,12 @@ AGoblin::AGoblin()
 
 	GetMesh()->SetRelativeLocationAndRotation(FVector(0.f, 0.f, -90.f), FRotator(0.f, -90.f, 0.f));
 
+	GetMesh()->SetAnimationMode(EAnimationMode::AnimationBlueprint);
+	ConstructorHelpers::FClassFinder<UAnimInstance>AnimInstance(TEXT("/Game/Blueprints/Monsters/ABP_GoblinAnim"));
+	if (AnimInstance.Succeeded()) {
+		GetMesh()->SetAnimInstanceClass(AnimInstance.Class);
+	}
+
 	AIControllerClass = AScarecrowAIController::StaticClass();
 	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 }

@@ -22,5 +22,12 @@ AGolem::AGolem()
 		UE_LOG(LogTemp, Warning, TEXT("Failed to Load Assets"));
 	}
 
+	GetMesh()->SetAnimationMode(EAnimationMode::AnimationBlueprint);
+	ConstructorHelpers::FClassFinder<UAnimInstance>AnimInstance(TEXT("/Game/Blueprints/Monsters/ABP_GolemAnim"));
+	if (AnimInstance.Succeeded()) {
+		GetMesh()->SetAnimInstanceClass(AnimInstance.Class);
+	}
+
 	GetMesh()->SetRelativeLocationAndRotation(FVector(0.f, 0.f, -90.f), FRotator(0.f, -90.f, 0.f));
+	GetMesh()->SetRelativeScale3D(FVector(3.f, 3.f, 3.f));
 }
