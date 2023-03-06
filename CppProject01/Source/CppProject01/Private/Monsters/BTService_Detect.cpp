@@ -6,6 +6,7 @@
 #include "BehaviorTree/BlackboardComponent.h"
 
 #include "Characters/BaseCharacter.h"
+#include "Monsters/BaseMonster.h"
 
 UBTService_Detect::UBTService_Detect()
 {
@@ -46,6 +47,7 @@ void UBTService_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeM
 			ABaseCharacter* Target = Cast<ABaseCharacter>(o.GetActor());
 			if (Target && Target->GetController()->IsPlayerController()) {
 				OwnerComp.GetBlackboardComponent()->SetValueAsObject(AScarecrowAIController::key_Target, Target);
+				OwnerComp.GetBlackboardComponent()->SetValueAsEnum(AScarecrowAIController::key_State, uint8(EState::CHASE));
 				DrawDebugSphere(World, Origin, radius, 12, FColor::Green, false, 0.2f);
 
 				return;
@@ -54,5 +56,6 @@ void UBTService_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeM
 	}
 
 	OwnerComp.GetBlackboardComponent()->SetValueAsObject(AScarecrowAIController::key_Target, nullptr);
+	OwnerComp.GetBlackboardComponent()->SetValueAsEnum(AScarecrowAIController::key_State, uint8(EState::PATROL));
 	DrawDebugSphere(World, Origin, radius, 12, FColor::Red, false, 0.2f);
 }
