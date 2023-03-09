@@ -154,13 +154,13 @@ void ABaseCharacter::SetMontages(FString folderPath)
 				DashMontage = MontageAsset.Object;
 			}
 			else if (i < 4) {
-				BasicAttackMontage[i - 1] = MontageAsset.Object;
+				BasicAttackMontages[i - 1] = MontageAsset.Object;
 			}
 			else if (i < 7) {
-				ChargedAttackMontage[i - 4] = MontageAsset.Object;
+				ChargedAttackMontages[i - 4] = MontageAsset.Object;
 			}
 			else if (i < 10) {
-				SkillMontage[i - 7] = MontageAsset.Object;
+				SkillMontages[i - 7] = MontageAsset.Object;
 			}
 		}
 		else {
@@ -214,10 +214,10 @@ void ABaseCharacter::BasicAttack()
 	UE_LOG(LogTemp, Log, TEXT("BasicAttack"));
 
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-	if (AnimInstance && BasicAttackMontage[WeaponIndex]) {
+	if (AnimInstance && BasicAttackMontages[WeaponIndex]) {
 		isIdle = false;
 
-		AnimInstance->Montage_Play(BasicAttackMontage[WeaponIndex]);
+		AnimInstance->Montage_Play(BasicAttackMontages[WeaponIndex]);
 		FName SectionName = FName();
 		if (comboCount == 0) {
 			SectionName = FName("01");
@@ -234,7 +234,7 @@ void ABaseCharacter::BasicAttack()
 		else if (comboCount == 4) {
 			SectionName = FName("05");
 		}
-		AnimInstance->Montage_JumpToSection(SectionName, BasicAttackMontage[WeaponIndex]);
+		AnimInstance->Montage_JumpToSection(SectionName, BasicAttackMontages[WeaponIndex]);
 	}
 
 }
@@ -248,11 +248,11 @@ void ABaseCharacter::Charge()
 	UE_LOG(LogTemp, Log, TEXT("Charge"));
 
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-	if (AnimInstance && ChargedAttackMontage[WeaponIndex]) {
+	if (AnimInstance && ChargedAttackMontages[WeaponIndex]) {
 		isIdle = false;
 
-		AnimInstance->Montage_Play(ChargedAttackMontage[WeaponIndex]);
-		AnimInstance->Montage_JumpToSection(FName("01"), ChargedAttackMontage[WeaponIndex]);
+		AnimInstance->Montage_Play(ChargedAttackMontages[WeaponIndex]);
+		AnimInstance->Montage_JumpToSection(FName("01"), ChargedAttackMontages[WeaponIndex]);
 	}
 
 }
@@ -262,10 +262,10 @@ void ABaseCharacter::ChargedAttack()
 	UE_LOG(LogTemp, Log, TEXT("ChargedAttack"));
 
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-	if (AnimInstance && ChargedAttackMontage[WeaponIndex]) {
+	if (AnimInstance && ChargedAttackMontages[WeaponIndex]) {
 
-		AnimInstance->Montage_Play(ChargedAttackMontage[WeaponIndex]);
-		AnimInstance->Montage_JumpToSection(FName("02"), ChargedAttackMontage[WeaponIndex]);
+		AnimInstance->Montage_Play(ChargedAttackMontages[WeaponIndex]);
+		AnimInstance->Montage_JumpToSection(FName("02"), ChargedAttackMontages[WeaponIndex]);
 	}
 
 }
@@ -279,11 +279,11 @@ void ABaseCharacter::Skill01()
 	UE_LOG(LogTemp, Log, TEXT("Skill01"));
 
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-	if (AnimInstance && SkillMontage[WeaponIndex]) {
+	if (AnimInstance && SkillMontages[WeaponIndex]) {
 		isIdle = false;
 
-		AnimInstance->Montage_Play(SkillMontage[WeaponIndex]);
-		AnimInstance->Montage_JumpToSection(FName("01"), SkillMontage[WeaponIndex]);
+		AnimInstance->Montage_Play(SkillMontages[WeaponIndex]);
+		AnimInstance->Montage_JumpToSection(FName("01"), SkillMontages[WeaponIndex]);
 	}
 
 }
@@ -297,11 +297,11 @@ void ABaseCharacter::Skill02()
 	UE_LOG(LogTemp, Log, TEXT("Skill02"));
 
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-	if (AnimInstance && SkillMontage[WeaponIndex]) {
+	if (AnimInstance && SkillMontages[WeaponIndex]) {
 		isIdle = false;
 
-		AnimInstance->Montage_Play(SkillMontage[WeaponIndex]);
-		AnimInstance->Montage_JumpToSection(FName("02"), SkillMontage[WeaponIndex]);
+		AnimInstance->Montage_Play(SkillMontages[WeaponIndex]);
+		AnimInstance->Montage_JumpToSection(FName("02"), SkillMontages[WeaponIndex]);
 	}
 }
 
@@ -314,11 +314,11 @@ void ABaseCharacter::Skill03()
 	UE_LOG(LogTemp, Log, TEXT("Skill03"));
 
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-	if (AnimInstance && SkillMontage[WeaponIndex]) {
+	if (AnimInstance && SkillMontages[WeaponIndex]) {
 		isIdle = false;
 
-		AnimInstance->Montage_Play(SkillMontage[WeaponIndex]);
-		AnimInstance->Montage_JumpToSection(FName("03"), SkillMontage[WeaponIndex]);
+		AnimInstance->Montage_Play(SkillMontages[WeaponIndex]);
+		AnimInstance->Montage_JumpToSection(FName("03"), SkillMontages[WeaponIndex]);
 	}
 }
 

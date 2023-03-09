@@ -27,7 +27,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -40,7 +40,15 @@ protected:
 
 	float damage;
 
+protected:
+	virtual void SetMontages(FString folderPath, int count);
+
+	UPROPERTY(EditDefaultsOnly, Category = Montages);
+		TArray<UAnimMontage*> AttackMontages;
+
 public:
 	void LoseHp(float amount);
 	int GetHp();
+
+	void Attack();
 };

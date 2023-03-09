@@ -24,6 +24,15 @@ AScarecrow::AScarecrow()
 	}
 
 	GetMesh()->SetRelativeLocationAndRotation(FVector(0.f, 0.f, -90.f), FRotator(0.f, -90.f, 0.f));
+	
+	GetMesh()->SetAnimationMode(EAnimationMode::AnimationBlueprint);
+	ConstructorHelpers::FClassFinder<UAnimInstance>AnimInstance(TEXT("/Game/Blueprints/Monsters/ABP_ScarecrowAnim"));
+	if (AnimInstance.Succeeded()) {
+		GetMesh()->SetAnimInstanceClass(AnimInstance.Class);
+	}
+
+	FString folderPath = "/Game/Blueprints/Monsters/Animations/Scarecrow";
+	SetMontages(folderPath, 1);
 
 	AIControllerClass = AScarecrowAIController::StaticClass();
 	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;

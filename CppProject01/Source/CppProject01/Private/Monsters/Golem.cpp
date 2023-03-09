@@ -29,5 +29,5 @@ AGolem::AGolem()
 	}
 
 	GetMesh()->SetRelativeLocationAndRotation(FVector(0.f, 0.f, -90.f), FRotator(0.f, -90.f, 0.f));
-	GetMesh()->SetRelativeScale3D(FVector(3.f, 3.f, 3.f));
+	SetActorScale3D(FVector(5.f, 5.f, 5.f));
 }

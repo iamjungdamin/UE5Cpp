@@ -31,6 +31,9 @@ AGoblin::AGoblin()
 		GetMesh()->SetAnimInstanceClass(AnimInstance.Class);
 	}
 
+	FString folderPath = "/Game/Blueprints/Monsters/Animations/Goblin";
+	SetMontages(folderPath, 1);
+
 	AIControllerClass = AScarecrowAIController::StaticClass();
 	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 }

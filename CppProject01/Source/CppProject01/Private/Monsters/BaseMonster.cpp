@@ -3,6 +3,9 @@
 
 #include "Monsters/BaseMonster.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "UObject/ConstructorHelpers.h"
+
+#include "Math/UnrealMathUtility.h"
 
 // Sets default values
 ABaseMonster::ABaseMonster()
@@ -42,6 +45,22 @@ void ABaseMonster::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 }
 
+void ABaseMonster::SetMontages(FString folderPath, int count)
+{
+	for (int i = 0; i < count; ++i) {
+		FString Path = folderPath + FString::Printf(TEXT("/AM_Attack%02d"), i + 1);
+		ConstructorHelpers::FObjectFinder<UAnimMontage>MontageAsset(*Path);
+
+		if (MontageAsset.Succeeded()) {
+			AttackMontages.Add(MontageAsset.Object);
+		}
+		else {
+			UE_LOG(LogTemp, Warning, TEXT("Failed to Load Assets"));
+			continue;
+		}
+	}
+}
+
 void ABaseMonster::LoseHp(float amount)
 {
 	hp -= amount;
@@ -54,5 +73,17 @@ void ABaseMonster::LoseHp(float amount)
 int ABaseMonster::GetHp()
 {
 	return hp;
+}
+
+void ABaseMonster::Attack()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Attack"));
+
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	int randomIndex = FMath::RandRange(0, AttackMontages.Num());
+
+	if (AnimInstance && AttackMontages[randomIndex]) {
+		AnimInstance->Montage_Play(AttackMontages[randomIndex]);
+	}
 }
 

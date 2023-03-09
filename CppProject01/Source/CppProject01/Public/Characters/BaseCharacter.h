@@ -60,13 +60,13 @@ protected:
 		UAnimMontage* DashMontage;
 
 	UPROPERTY(EditDefaultsOnly, Category = Montages)
-		UAnimMontage* BasicAttackMontage[3];
+		UAnimMontage* BasicAttackMontages[3];
 
 	UPROPERTY(EditDefaultsOnly, Category = Montages)
-		UAnimMontage* ChargedAttackMontage[3];
+		UAnimMontage* ChargedAttackMontages[3];
 
 	UPROPERTY(EditDefaultsOnly, Category = Montages)
-		UAnimMontage* SkillMontage[3];
+		UAnimMontage* SkillMontages[3];
 
 private:
 	void ChangeWeapon();
