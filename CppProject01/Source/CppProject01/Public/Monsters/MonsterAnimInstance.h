@@ -29,4 +29,8 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, Category = Movement)
 		bool IsFalling;
+
+public:
+	UFUNCTION()
+		void AnimNotify_SetIsIdle();
 };

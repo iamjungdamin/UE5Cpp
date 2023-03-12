@@ -61,6 +61,16 @@ void ABaseMonster::SetMontages(FString folderPath, int count)
 	}
 }
 
+void ABaseMonster::SetIsIdle(bool value)
+{
+	isIdle = value;
+}
+
+bool ABaseMonster::GetIsIdle()
+{
+	return isIdle;
+}
+
 void ABaseMonster::LoseHp(float amount)
 {
 	hp -= amount;
@@ -80,7 +90,7 @@ void ABaseMonster::Attack()
 	UE_LOG(LogTemp, Warning, TEXT("Attack"));
 
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-	int randomIndex = FMath::RandRange(0, AttackMontages.Num());
+	int randomIndex = FMath::RandRange(0, AttackMontages.Num() - 1);
 
 	if (AnimInstance && AttackMontages[randomIndex]) {
 		AnimInstance->Montage_Play(AttackMontages[randomIndex]);

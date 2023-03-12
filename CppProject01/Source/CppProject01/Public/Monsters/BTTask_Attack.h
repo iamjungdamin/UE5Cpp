@@ -6,6 +6,8 @@
 #include "BehaviorTree/BTTaskNode.h"
 #include "BTTask_Attack.generated.h"
 
+class ABaseMonster;
+
 /**
  * 
  */
@@ -20,4 +22,7 @@ public:
 
 protected:
 	virtual void TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds);
+
+private:
+	ABaseMonster* ControllingCharacter;
 };

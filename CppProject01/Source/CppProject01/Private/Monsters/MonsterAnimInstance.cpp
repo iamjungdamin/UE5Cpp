@@ -26,3 +26,8 @@ void UMonsterAnimInstance::NativeUpdateAnimation(float DeltaTime)
 	}
 }
 
+void UMonsterAnimInstance::AnimNotify_SetIsIdle()
+{
+	Owner->SetIsIdle(true);
+}
+

@@ -15,11 +15,23 @@ UBTTask_Attack::UBTTask_Attack()
 EBTNodeResult::Type UBTTask_Attack::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	EBTNodeResult::Type Result = Super::ExecuteTask(OwnerComp, NodeMemory);
+
+	ControllingCharacter = Cast<ABaseMonster>(OwnerComp.GetAIOwner()->GetPawn());
+	if (nullptr == ControllingCharacter) {
+		return EBTNodeResult::Failed;
+	}
+
+	ControllingCharacter->SetIsIdle(false);
+	ControllingCharacter->Attack();
+
 	return EBTNodeResult::InProgress;
 }
 
 void UBTTask_Attack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
 {
 	Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds);
-	FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
+
+	if (ControllingCharacter->GetIsIdle()) {
+		FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
+	}
 }

@@ -34,6 +34,9 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+private:
+	bool isIdle = true;
+
 protected:
 	float hp;
 	float maxHp;
@@ -47,6 +50,9 @@ protected:
 		TArray<UAnimMontage*> AttackMontages;
 
 public:
+	void SetIsIdle(bool value);
+	bool GetIsIdle();
+
 	void LoseHp(float amount);
 	int GetHp();
 
