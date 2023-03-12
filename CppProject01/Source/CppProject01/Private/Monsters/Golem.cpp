@@ -25,6 +25,7 @@ AGolem::AGolem()
 
 	GetMesh()->SetRelativeLocationAndRotation(FVector(0.f, 0.f, -90.f), FRotator(0.f, -90.f, 0.f));
 	SetActorScale3D(FVector(5.f, 5.f, 5.f));
+	rangeType = ERangeType::Wide;
 
 	GetMesh()->SetAnimationMode(EAnimationMode::AnimationBlueprint);
 	ConstructorHelpers::FClassFinder<UAnimInstance>AnimInstance(TEXT("/Game/Blueprints/Monsters/ABP_GolemAnim"));

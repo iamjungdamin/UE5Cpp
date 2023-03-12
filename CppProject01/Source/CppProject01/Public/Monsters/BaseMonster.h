@@ -7,6 +7,12 @@
 #include "BaseMonster.generated.h"
 
 UENUM(BlueprintType)
+enum class ERangeType : uint8 {
+	Narrow,
+	Wide
+};
+
+UENUM(BlueprintType)
 enum class EState : uint8 {
 	NOTHING,
 	PATROL,
@@ -38,6 +44,8 @@ private:
 	bool isIdle = true;
 
 protected:
+	ERangeType rangeType = ERangeType::Narrow;
+	
 	float hp;
 	float maxHp;
 
@@ -51,10 +59,12 @@ protected:
 
 public:
 	void SetIsIdle(bool value);
-	bool GetIsIdle();
+	bool GetIsIdle() const;
+
+	ERangeType GetRangeType() const;
 
 	void LoseHp(float amount);
-	int GetHp();
+	int GetHp() const;
 
 	void Attack();
 };

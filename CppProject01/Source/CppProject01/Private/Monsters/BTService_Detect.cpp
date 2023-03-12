@@ -23,13 +23,29 @@ void UBTService_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeM
 		return;
 	}
 
+	ABaseMonster* ControllingCharacter = Cast<ABaseMonster>(ControllingPawn);
+	if (nullptr == ControllingCharacter) {
+		return;
+	}
+	ERangeType rangeType = ControllingCharacter->GetRangeType();
+
 	UWorld* World = ControllingPawn->GetWorld();
 	if (nullptr == World) {
 		return;
 	}
 
 	FVector Origin = ControllingPawn->GetActorLocation();
-	float radius = 500.f;
+
+	float radius = 0.f;
+	if (rangeType == ERangeType::Narrow) {
+		radius = 500.f;
+	}
+	else if (rangeType == ERangeType::Wide) {
+		radius = 1000.f;
+	}
+	else {
+		return;
+	}
 
 	// ControllingPawnÀº °¨Áöx
 	FCollisionQueryParams CollisionQueryParam(NAME_None, false, ControllingPawn);

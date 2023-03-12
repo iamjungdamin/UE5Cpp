@@ -66,9 +66,14 @@ void ABaseMonster::SetIsIdle(bool value)
 	isIdle = value;
 }
 
-bool ABaseMonster::GetIsIdle()
+bool ABaseMonster::GetIsIdle() const
 {
 	return isIdle;
+}
+
+ERangeType ABaseMonster::GetRangeType() const
+{
+	return rangeType;
 }
 
 void ABaseMonster::LoseHp(float amount)
@@ -80,7 +85,7 @@ void ABaseMonster::LoseHp(float amount)
 	}
 }
 
-int ABaseMonster::GetHp()
+int ABaseMonster::GetHp() const
 {
 	return hp;
 }

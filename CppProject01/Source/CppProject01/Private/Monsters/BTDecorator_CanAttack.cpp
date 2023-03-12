@@ -6,6 +6,7 @@
 #include "BehaviorTree/BlackboardComponent.h"
 
 #include "Characters/BaseCharacter.h"
+#include "Monsters/BaseMonster.h"
 
 UBTDecorator_CanAttack::UBTDecorator_CanAttack()
 {
@@ -20,13 +21,28 @@ bool UBTDecorator_CanAttack::CalculateRawConditionValue(UBehaviorTreeComponent& 
 	if (nullptr == ControllingPawn) {
 		return false;
 	}
+	
+	ABaseMonster* ControllingCharacter = Cast<ABaseMonster>(ControllingPawn);
+	if (nullptr == ControllingCharacter) {
+		return false;
+	}
+	ERangeType rangeType = ControllingCharacter->GetRangeType();
 
 	ABaseCharacter* Target = Cast<ABaseCharacter>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AScarecrowAIController::key_Target));
 	if (nullptr == Target) {
 		return false;
 	}
 
-	float attackDist = 200.f;
-	result = Target->GetDistanceTo(ControllingPawn) <= attackDist;
-	return result;
+	if (rangeType == ERangeType::Narrow) {
+		float attackDist = 200.f;
+		result = Target->GetDistanceTo(ControllingPawn) <= attackDist;
+		return result;
+	}
+	else if (rangeType == ERangeType::Wide) {
+		float attackDist = 1500.f;
+		result = Target->GetDistanceTo(ControllingPawn) <= attackDist;
+		return result;
+	}
+
+	return false;
 }

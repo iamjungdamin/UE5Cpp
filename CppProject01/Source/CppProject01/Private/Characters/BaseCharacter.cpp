@@ -36,7 +36,7 @@ void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	bUseControllerRotationPitch = false;
+	bUseControllerRotationPitch = true;
 	bUseControllerRotationYaw = true;
 	bUseControllerRotationRoll = false;
 
