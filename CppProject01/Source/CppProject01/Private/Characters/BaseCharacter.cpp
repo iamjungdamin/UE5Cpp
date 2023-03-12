@@ -25,6 +25,10 @@ ABaseCharacter::ABaseCharacter()
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	CameraBoom->SetupAttachment(GetRootComponent());
 	CameraBoom->TargetArmLength = 300.f;
+	CameraBoom->bUsePawnControlRotation = true;
+	CameraBoom->bInheritPitch = true;
+	CameraBoom->bInheritYaw = true;
+	CameraBoom->bInheritRoll = true;
 	CameraBoom->SetRelativeLocationAndRotation(FVector(0.f, 0.f, 60.f), FRotator(0.f, -10.f, 0.f));
 
 	ViewCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("ViewCamera"));
@@ -36,8 +40,8 @@ void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	bUseControllerRotationPitch = true;
-	bUseControllerRotationYaw = true;
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
 
 	GetCharacterMovement()->bOrientRotationToMovement = true;
@@ -192,10 +196,10 @@ void ABaseCharacter::Dash()
 	FVector Down = FVector(0, 0, -300.f);
 	LaunchCharacter(Forward + Down, true, true);
 
-	//UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-	//if (AnimInstance && DashMontage) {
-	//	AnimInstance->Montage_Play(DashMontage);
-	//}
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	if (AnimInstance && DashMontage) {
+		AnimInstance->Montage_Play(DashMontage);
+	}
 
 }
 
